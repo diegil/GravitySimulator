@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlanetSpawnerController : MonoBehaviour
+public class SpawnerController : MonoBehaviour
 {
     private GameObject previewObj;
 
@@ -24,11 +24,11 @@ public class PlanetSpawnerController : MonoBehaviour
     void Update()
     {
         //Comprueba que tecla se pulsa para crear un planeta u otro
-        if(Input.GetKeyDown(KeyCode.A) && GameObject.Find("Pause(Clone)") == null){
+        if(Input.GetKeyDown(KeyCode.A) && GameObject.Find("Pause(Clone)") == null && GameObject.Find("Earth(Clone)") == null){
             selectedPlanet = 0;
             pauseObj = Instantiate(pausePrefab);
             CreatePreview(selectedPlanet);
-        }else if(Input.GetKeyDown(KeyCode.B) && GameObject.Find("Pause(Clone)") == null){
+        }else if(Input.GetKeyDown(KeyCode.B) && GameObject.Find("Pause(Clone)") == null && GameObject.Find("Moon(Clone)") == null){
             selectedPlanet = 1;
             pauseObj = Instantiate(pausePrefab);
             CreatePreview(selectedPlanet);

@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{acbd8507-4dd9-c153-ee2f-adaa715c6a29}</ProjectGuid>
+    <ProjectGuid>{873c0d36-022f-03b3-4cbc-f6d5c0a430c9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -38,7 +38,6 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CommonScripts.cs" />
      <Compile Include="Assets\Scripts\PlanetController.cs" />
-     <Compile Include="Assets\Scripts\PlanetSpawnerController.cs" />
      <Compile Include="Assets\Scripts\SpawnerController.cs" />
      <Compile Include="Assets\Scripts\TrajectoryController.cs" />
     <Reference Include="UnityEngine">
@@ -570,34 +569,34 @@
         <HintPath>D:\Unity\2019.4.40f1\Editor\Data\NetStandard\compat\2.0.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-        <HintPath>D:\Unity\Projects\GravitySim3D\Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
+        <HintPath>D:\Unity\Projects\GravitySim3DGithub\Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-        <HintPath>D:\Unity\Projects\GravitySim3D\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+        <HintPath>D:\Unity\Projects\GravitySim3DGithub\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-        <HintPath>D:\Unity\Projects\GravitySim3D\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
+        <HintPath>D:\Unity\Projects\GravitySim3DGithub\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-        <HintPath>D:\Unity\Projects\GravitySim3D\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+        <HintPath>D:\Unity\Projects\GravitySim3DGithub\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-        <HintPath>D:\Unity\Projects\GravitySim3D\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
+        <HintPath>D:\Unity\Projects\GravitySim3DGithub\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-        <HintPath>D:\Unity\Projects\GravitySim3D\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
+        <HintPath>D:\Unity\Projects\GravitySim3DGithub\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
-        <HintPath>D:\Unity\Projects\GravitySim3D\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
+        <HintPath>D:\Unity\Projects\GravitySim3DGithub\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-        <HintPath>D:\Unity\Projects\GravitySim3D\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
+        <HintPath>D:\Unity\Projects\GravitySim3DGithub\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PlasticSCM.Editor">
-        <HintPath>D:\Unity\Projects\GravitySim3D\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+        <HintPath>D:\Unity\Projects\GravitySim3DGithub\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-        <HintPath>D:\Unity\Projects\GravitySim3D\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+        <HintPath>D:\Unity\Projects\GravitySim3DGithub\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

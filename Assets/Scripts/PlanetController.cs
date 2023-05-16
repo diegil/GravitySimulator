@@ -27,9 +27,9 @@ public class PlanetController : MonoBehaviour
         }
 
         GameObject[] planetsObj = GameObject.FindGameObjectsWithTag("Planet");
-        if (planetsObj.Length > 2 && GameObject.Find("Pause(Clone)") == null){
-            addCentripetalAcceleration();
-        }
+        // if (planetsObj.Length > 2 && GameObject.Find("Pause(Clone)") == null){
+        //     addCentripetalAcceleration();
+        // }
     }
 
     // Update is called once per frame

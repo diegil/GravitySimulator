@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5763190793754944479}
   - component: {fileID: 1978814005572726786}
   - component: {fileID: -2794128872934487705}
+  - component: {fileID: -3110055127837729790}
   - component: {fileID: 1072882195051995380}
   - component: {fileID: 6807230249276282805}
   m_Layer: 0
@@ -107,11 +108,23 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-3110055127837729790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8366769731323538873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6572013797b0e04fa82eaad6ac7064c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1072882195051995380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,7 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a84a2030ea626f840b33bb351414a7c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planet: {fileID: 0}
+  cmS: {fileID: 0}
   points: 50
-  orbitLine: {fileID: 0}
   velocidadOrbita: 1

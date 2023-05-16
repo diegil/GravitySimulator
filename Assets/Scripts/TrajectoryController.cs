@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class TrajectoryController : MonoBehaviour
 {
-    public CommonScripts cmS;
+    private CommonScripts cmS;
 
-    public GameObject closestPlanet;
+    // private GameObject closestPlanet;
     private List<Transform> planets;
 
     public int points = 50;
 
-    public LineRenderer orbitLine;
-    public float velocidadOrbita = 100000000f;
+    private LineRenderer orbitLine;
+    public float velocidadOrbita = 10000f;
 
     // Start is called before the first frame update
     void Start()
     {
+        cmS = gameObject.GetComponent<CommonScripts>();
+        
+        GameObject[] planetsObj = GameObject.FindGameObjectsWithTag("Planet");
         gameObject.AddComponent<LineRenderer>();
         orbitLine = GetComponent<LineRenderer>();
         orbitLine.startWidth = 0.05f;
@@ -24,23 +27,19 @@ public class TrajectoryController : MonoBehaviour
         orbitLine.material =  new Material(Shader.Find("Sprites/Default"));
         orbitLine.startColor = new Color(255, 255, 255);
         orbitLine.endColor = new Color(255, 255, 255);
-
+        orbitLine.enabled = false;
         planets = new List<Transform>();
-        GameObject[] planetsObj = GameObject.FindGameObjectsWithTag("Planet");
-        
         foreach (GameObject planetObj in planetsObj)
         {
             planets.Add(planetObj.transform);
         }
-
-        orbitLine.positionCount = points;
     }
 
     // Update is called once per frame
     void Update()
     {
         GameObject[] planetsObj = GameObject.FindGameObjectsWithTag("Planet");
-        if (planetsObj.Length > 2 && GameObject.Find("Pause(Clone)") == null){
+        if (planetsObj.Length > 1){
             drawOrbit();
         }
     }
@@ -59,6 +58,10 @@ public class TrajectoryController : MonoBehaviour
             orbitPoints[i] = closestPlanet.transform.position + position;
         }
 
-        orbitLine.SetPositions(orbitPoints);
+        if (this.GetComponent<PlanetController>().mass < closestPlanet.GetComponent<PlanetController>().mass){
+            orbitLine.enabled = true;
+            orbitLine.positionCount = points;
+            orbitLine.SetPositions(orbitPoints);
+        }
     }
 }
