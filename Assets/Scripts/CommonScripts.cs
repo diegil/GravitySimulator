@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class CommonScripts : MonoBehaviour
 {
+    GameObject closestPlanet;
+    
     public GameObject calculateClosestBody(){
-        GameObject closestPlanet = new GameObject();
         float minDistance = float.MaxValue;
 
         GameObject[] planetsObj = GameObject.FindGameObjectsWithTag("Planet");

@@ -7,7 +7,6 @@ public class TrajectoryController : MonoBehaviour
     private CommonScripts cmS;
 
     // private GameObject closestPlanet;
-    private List<Transform> planets;
 
     public int points = 50;
 
@@ -28,11 +27,6 @@ public class TrajectoryController : MonoBehaviour
         orbitLine.startColor = new Color(255, 255, 255);
         orbitLine.endColor = new Color(255, 255, 255);
         orbitLine.enabled = false;
-        planets = new List<Transform>();
-        foreach (GameObject planetObj in planetsObj)
-        {
-            planets.Add(planetObj.transform);
-        }
     }
 
     // Update is called once per frame
@@ -46,6 +40,7 @@ public class TrajectoryController : MonoBehaviour
 
     void drawOrbit(){
         GameObject closestPlanet = cmS.calculateClosestBody();
+        // GameObject closestPlanet = this.gameObject;
 
         float radius = (closestPlanet.transform.position - this.transform.position).magnitude;
         
