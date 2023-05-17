@@ -8,10 +8,12 @@ public class PlanetController : MonoBehaviour
 
     public float mass;
 
+    //gravity force requirements
     private float attractionForce;
     private float distance;
     private float g = 6.67384e-11f;
 
+    //pause game requirements
     private Vector3 savedVelocity;
     private Vector3 savedAngularVelocity;
 
@@ -20,6 +22,8 @@ public class PlanetController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cmS = gameObject.GetComponent<CommonScripts>();
+
         if(this.name == "Earth(Clone)"){
             mass = 5.972e24f;
         }else if(this.name == "Moon(Clone)"){
@@ -27,15 +31,15 @@ public class PlanetController : MonoBehaviour
         }
 
         GameObject[] planetsObj = GameObject.FindGameObjectsWithTag("Planet");
-        // if (planetsObj.Length > 2 && GameObject.Find("Pause(Clone)") == null){
-        //     addCentripetalAcceleration();
-        // }
+        if (planetsObj.Length > 2 && pause == false){
+            addCentripetalAcceleration();
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Collider[] influenceObjects = Physics.OverlapSphere(transform.position, 1e10f);
+        Collider[] influenceObjects = Physics.OverlapSphere(transform.position, float.MaxValue);
         
         if (GameObject.Find("Pause(Clone)") != null && pause == false){
             pause = true;
@@ -73,14 +77,17 @@ public class PlanetController : MonoBehaviour
         GameObject closestPlanet = cmS.calculateClosestBody();
 
         float w;
-        float g = 9.81f;
-        float radius = (closestPlanet.transform.position - this.transform.position).magnitude;
+        Vector3 radiusVector = closestPlanet.transform.position - this.transform.position;
+        float radius = radiusVector.magnitude * 4e11f;
 
-        w = Mathf.Sqrt((g / radius));
+        Vector2 perpendicularRadiusVector2D = Vector2.Perpendicular(radiusVector);
 
-        Debug.Log(w);
+        Vector3 perpendicularRadiusVector3D = new Vector3(perpendicularRadiusVector2D.x, 0, -perpendicularRadiusVector2D.y).normalized;
 
-        this.GetComponent<Rigidbody>().AddTorque(Vector3.forward * w * Time.deltaTime, ForceMode.Acceleration);
+        w = Mathf.Sqrt((g * closestPlanet.GetComponent<PlanetController>().mass) / radius);
+
+        // Debug.Log(w);
+        this.GetComponent<Rigidbody>().AddForce(perpendicularRadiusVector3D * w, ForceMode.VelocityChange);
     }
 
     void PauseGame(){

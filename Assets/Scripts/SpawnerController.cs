@@ -48,8 +48,8 @@ public class SpawnerController : MonoBehaviour
 
         //Comprueba si se presiona el click izquierdo para crear el planeta o si se presiona click derecho para no crearlo
         if (Input.GetMouseButtonDown(0) && followPreview == true){
-            Instantiate(planets[selectedPlanet], previewObj.transform.position, Quaternion.identity);
             resumeGame();
+            Instantiate(planets[selectedPlanet], previewObj.transform.position, Quaternion.identity);
         }else if(Input.GetMouseButtonDown(1) && followPreview == true){
             resumeGame();
         }

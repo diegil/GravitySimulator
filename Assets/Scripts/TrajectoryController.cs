@@ -6,12 +6,9 @@ public class TrajectoryController : MonoBehaviour
 {
     private CommonScripts cmS;
 
-    // private GameObject closestPlanet;
-
     public int points = 50;
 
     private LineRenderer orbitLine;
-    public float velocidadOrbita = 10000f;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +37,6 @@ public class TrajectoryController : MonoBehaviour
 
     void drawOrbit(){
         GameObject closestPlanet = cmS.calculateClosestBody();
-        // GameObject closestPlanet = this.gameObject;
 
         float radius = (closestPlanet.transform.position - this.transform.position).magnitude;
         
