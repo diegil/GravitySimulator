@@ -54,7 +54,7 @@ public class PlanetController : MonoBehaviour
             if (influenceObjects.Length == 2){
                 continue;
             }
-            if (obj.name == "Space"){
+            if(obj.tag != "Planet"){
                 continue;
             }
 

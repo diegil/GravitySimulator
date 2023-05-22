@@ -31,7 +31,20 @@ public class TrajectoryController : MonoBehaviour
     {
         GameObject[] planetsObj = GameObject.FindGameObjectsWithTag("Planet");
         if (planetsObj.Length > 1){
-            drawOrbit();
+            // drawOrbit();
+            drawLine();
+        }
+    }
+
+    void drawLine(){
+        GameObject closestPlanet = cmS.calculateClosestBody();
+        Vector3[] linePoints = new Vector3[2];
+        linePoints[0] = closestPlanet.transform.position;
+        linePoints[1] = this.transform.position;
+        if (this.GetComponent<PlanetController>().mass < closestPlanet.GetComponent<PlanetController>().mass){
+            orbitLine.enabled = true;
+            orbitLine.positionCount = 2;
+            orbitLine.SetPositions(linePoints);
         }
     }
 

@@ -152,6 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pausePrefab: {fileID: 7418557802700855897, guid: 35c99eb14a40b15488952fb2256f2b06,
     type: 3}
+  rocketPrefab: {fileID: 8733320972393895042, guid: 589e3f6c210658c4c873ec62d1b6ba63,
+    type: 3}
   planets:
   - {fileID: 1687868260375327708, guid: 310510cc694f9db4aa2352223df0941f, type: 3}
   - {fileID: 8366769731323538873, guid: de0c36f5059134f49a19fc8ae0ecd110, type: 3}
@@ -338,7 +340,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 90.13, z: -6.6}
+  m_LocalPosition: {x: 0, y: 54.8, z: -6.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

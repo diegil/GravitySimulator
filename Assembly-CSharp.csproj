@@ -38,6 +38,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CommonScripts.cs" />
      <Compile Include="Assets\Scripts\PlanetController.cs" />
+     <Compile Include="Assets\Scripts\RocketController.cs" />
      <Compile Include="Assets\Scripts\SpawnerController.cs" />
      <Compile Include="Assets\Scripts\TrajectoryController.cs" />
     <Reference Include="UnityEngine">

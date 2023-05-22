@@ -9,16 +9,13 @@ public class SpawnerController : MonoBehaviour
 
     private GameObject pauseObj;
     public GameObject pausePrefab;
+    
+    public GameObject rocketPrefab;
 
     public GameObject[] planets;
     int selectedPlanet = -1;
 
     bool followPreview = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -26,12 +23,16 @@ public class SpawnerController : MonoBehaviour
         //Comprueba que tecla se pulsa para crear un planeta u otro
         if(Input.GetKeyDown(KeyCode.A) && GameObject.Find("Pause(Clone)") == null && GameObject.Find("Earth(Clone)") == null){
             selectedPlanet = 0;
-            pauseObj = Instantiate(pausePrefab);
+            pauseGame();
             CreatePreview(selectedPlanet);
         }else if(Input.GetKeyDown(KeyCode.B) && GameObject.Find("Pause(Clone)") == null && GameObject.Find("Moon(Clone)") == null){
             selectedPlanet = 1;
-            pauseObj = Instantiate(pausePrefab);
+            pauseGame();
             CreatePreview(selectedPlanet);
+        }else if(Input.GetKeyDown(KeyCode.C) && GameObject.Find("Pause(Clone)") == null && GameObject.Find("Earth(Clone)") != null){
+            pauseGame();
+            GameObject launchpad = GameObject.Find("Launchpad");
+            Instantiate(rocketPrefab, launchpad.transform.position, Quaternion.identity);
         }
 
         //Hace que la preview del planeta siga al cursor
@@ -67,9 +68,15 @@ public class SpawnerController : MonoBehaviour
         }
     }
 
-    void resumeGame(){
+    public void pauseGame(){
+        pauseObj = Instantiate(pausePrefab);
+    }
+
+    public void resumeGame(){
         followPreview = false;
-        Destroy(previewObj);
+        try {
+            Destroy(previewObj);
+        }catch(Exception){}
         Destroy(pauseObj); 
     }
 }
