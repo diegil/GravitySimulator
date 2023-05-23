@@ -6,7 +6,7 @@ public class TrajectoryController : MonoBehaviour
 {
     private CommonScripts cmS;
 
-    public int points = 50;
+    private int points = 50;
 
     private LineRenderer orbitLine;
 

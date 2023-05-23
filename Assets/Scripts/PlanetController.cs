@@ -24,12 +24,6 @@ public class PlanetController : MonoBehaviour
     {
         cmS = gameObject.GetComponent<CommonScripts>();
 
-        if(this.name == "Earth(Clone)"){
-            mass = 5.972e24f;
-        }else if(this.name == "Moon(Clone)"){
-            mass = 7.347e22f;
-        }
-
         GameObject[] planetsObj = GameObject.FindGameObjectsWithTag("Planet");
         if (planetsObj.Length > 2 && pause == false){
             addCentripetalAcceleration();
