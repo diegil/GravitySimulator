@@ -12,9 +12,13 @@ public class RocketController : MonoBehaviour
     private GameObject targetPlanet;
     private GameObject hitPoint;
 
+    public float explosionMegatons;
+    private float explosionForceMass;
+
     // Start is called before the first frame update
     void Start()
     {
+        explosionForceMass = explosionMegatons * 1e9f;
         selectingTarget = true;
         liftoff = false;
         seekTarget = false;
@@ -52,11 +56,13 @@ public class RocketController : MonoBehaviour
             if (other.gameObject.name == targetPlanet.gameObject.name){
 
                 float impactVelocity = this.gameObject.GetComponent<Rigidbody>().velocity.magnitude;
-                float impactEnergy = 0.5f * this.gameObject.GetComponent<PlanetController>().mass * Mathf.Pow(impactVelocity, 2);
+                float impactEnergy = (0.5f * (explosionForceMass / 5.8776e15f) * Mathf.Pow(impactVelocity, 2));
+
+                Debug.Log(impactEnergy);
 
                 Vector3 explosionCenter = this.gameObject.transform.position;
 
-                float explosionRadius = 130 * Mathf.Pow(this.gameObject.GetComponent<PlanetController>().mass, (1/6));
+                float explosionRadius = 130 * Mathf.Pow(explosionForceMass, (1/6));
 
                 targetPlanet.gameObject.GetComponent<Rigidbody>().AddExplosionForce(impactEnergy, explosionCenter, explosionRadius);
                 

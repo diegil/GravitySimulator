@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c81669d98bb73247b9b79bb3914b4da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionMegatons: 1e+14
 --- !u!114 &-5155581475492969745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14395e7444a6d0a4faa7ea965de7ef2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 100000000
+  mass: 10000
 --- !u!114 &4432634206964400021
 MonoBehaviour:
   m_ObjectHideFlags: 0
