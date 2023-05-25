@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class RocketController : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class RocketController : MonoBehaviour
 
     public float explosionMegatons;
     private float explosionForceMass;
+
+    public GameObject debrisPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +40,7 @@ public class RocketController : MonoBehaviour
 
         if(selectingTarget){
             if(Input.GetMouseButtonDown(0)){
-                setHitPoint();
+                selectTarget();
             }
         }
 
@@ -58,11 +61,11 @@ public class RocketController : MonoBehaviour
                 float impactVelocity = this.gameObject.GetComponent<Rigidbody>().velocity.magnitude;
                 float impactEnergy = (0.5f * (explosionForceMass / 5.8776e15f) * Mathf.Pow(impactVelocity, 2));
 
-                Debug.Log(impactEnergy);
-
                 Vector3 explosionCenter = this.gameObject.transform.position;
 
                 float explosionRadius = 130 * Mathf.Pow(explosionForceMass, (1/6));
+                
+                createDebris();
 
                 targetPlanet.gameObject.GetComponent<Rigidbody>().AddExplosionForce(impactEnergy, explosionCenter, explosionRadius);
                 
@@ -71,7 +74,7 @@ public class RocketController : MonoBehaviour
         }
     }
 
-    void setHitPoint(){
+    void selectTarget(){
         Ray ray;
         RaycastHit hit;
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -82,6 +85,14 @@ public class RocketController : MonoBehaviour
                 liftoff = true;
                 Destroy(GameObject.Find("Pause(Clone)"));
             }
+        }
+    }
+
+    void createDebris(){
+        int debrisNumber = Random.Range(5, 15);
+        Debug.Log("debris number: " + debrisNumber);
+        for (int i = 0; i <= debrisNumber - 1; i++){
+            GameObject newDebris = Instantiate(debrisPrefab, this.transform.position, Quaternion.identity);
         }
     }
 }

@@ -127,7 +127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c81669d98bb73247b9b79bb3914b4da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionMegatons: 1e+14
+  explosionMegatons: 1e+15
+  debrisPrefab: {fileID: 2234482688756184027, guid: f64b26eaebf0c214b9b631a72115961e,
+    type: 3}
 --- !u!114 &-5155581475492969745
 MonoBehaviour:
   m_ObjectHideFlags: 0
