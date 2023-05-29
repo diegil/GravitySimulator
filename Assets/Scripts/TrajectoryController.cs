@@ -16,14 +16,14 @@ public class TrajectoryController : MonoBehaviour
         cmS = gameObject.GetComponent<CommonScripts>();
         
         GameObject[] planetsObj = GameObject.FindGameObjectsWithTag("Planet");
-        gameObject.AddComponent<LineRenderer>();
-        orbitLine = GetComponent<LineRenderer>();
-        orbitLine.startWidth = 0.05f;
-        orbitLine.endWidth = 0.05f;
-        orbitLine.material =  new Material(Shader.Find("Sprites/Default"));
-        orbitLine.startColor = new Color(255, 255, 255);
-        orbitLine.endColor = new Color(255, 255, 255);
-        orbitLine.enabled = false;
+        if(this.gameObject.name != "Rocket(Clone)"){
+            gameObject.AddComponent<LineRenderer>();
+            orbitLine = GetComponent<LineRenderer>();
+            orbitLine.startWidth = 0.05f;
+            orbitLine.endWidth = 0.05f;
+            orbitLine.material =  new Material(Shader.Find("Sprites/Default"));
+            orbitLine.enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -32,17 +32,35 @@ public class TrajectoryController : MonoBehaviour
         GameObject[] planetsObj = GameObject.FindGameObjectsWithTag("Planet");
         if (planetsObj.Length > 1){
             // drawOrbit();
-            drawLine();
+            if(this.gameObject.name != "Rocket(Clone)"){
+                drawLine();
+            }
         }
     }
 
     void drawLine(){
         GameObject closestPlanet = cmS.calculateClosestBody();
+
+        float distanceToClosestPlanet = (closestPlanet.transform.position - this.transform.position).magnitude;
+        if(distanceToClosestPlanet <= 10){
+            orbitLine.enabled = true;
+            orbitLine.material.SetColor("_Color", Color.red);
+        }else if(distanceToClosestPlanet > 10 && distanceToClosestPlanet <= 150){
+            orbitLine.enabled = true;
+            orbitLine.material.SetColor("_Color", Color.green);
+        }else if(distanceToClosestPlanet > 150 && distanceToClosestPlanet <= 200){
+            orbitLine.enabled = true;
+            orbitLine.material.SetColor("_Color", Color.blue);
+        }else if(distanceToClosestPlanet > 200 && distanceToClosestPlanet <= 300){
+            orbitLine.enabled = false;
+        }else if(distanceToClosestPlanet > 300){
+            Destroy(this.gameObject);
+        }
+
         Vector3[] linePoints = new Vector3[2];
         linePoints[0] = closestPlanet.transform.position;
         linePoints[1] = this.transform.position;
         if (this.GetComponent<PlanetController>().mass < closestPlanet.GetComponent<PlanetController>().mass){
-            orbitLine.enabled = true;
             orbitLine.positionCount = 2;
             orbitLine.SetPositions(linePoints);
         }

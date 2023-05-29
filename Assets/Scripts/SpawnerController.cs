@@ -37,6 +37,8 @@ public class SpawnerController : MonoBehaviour
 
         //Hace que la preview del planeta siga al cursor
         if(followPreview){
+            previewObj.GetComponent<TrailRenderer>().enabled = false;
+            
             Ray followRay;
             RaycastHit followHit;
             followRay = Camera.main.ScreenPointToRay(Input.mousePosition);

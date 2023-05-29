@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c81669d98bb73247b9b79bb3914b4da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionMegatons: 1e+15
+  explosionMegatons: 1e+14
   debrisPrefab: {fileID: 2234482688756184027, guid: f64b26eaebf0c214b9b631a72115961e,
     type: 3}
 --- !u!114 &-5155581475492969745
@@ -215,8 +215,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.01731491
-        value: 0.19791603
+        time: 0
+        value: 0.14583015
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -229,7 +229,7 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 0, b: 0, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 0.990566, g: 0.4719206, b: 0.4719206, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}

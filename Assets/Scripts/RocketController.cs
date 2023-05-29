@@ -18,9 +18,20 @@ public class RocketController : MonoBehaviour
 
     public GameObject debrisPrefab;
 
+    private LineRenderer targetLine;
+
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.AddComponent<LineRenderer>();
+        targetLine = gameObject.GetComponent<LineRenderer>();
+        targetLine.enabled = false;
+        targetLine.startWidth = 0.2f;
+        targetLine.endWidth = 0.2f;
+        targetLine.material =  new Material(Shader.Find("Sprites/Default"));
+        targetLine.material.SetColor("_Color", Color.red);
+        targetLine.positionCount = 2;
+
         explosionForceMass = explosionMegatons * 1e9f;
         selectingTarget = true;
         liftoff = false;
@@ -35,6 +46,7 @@ public class RocketController : MonoBehaviour
                 // Destroy(GameObject.Find("Launchpad2"));
                 liftoff = false;
                 seekTarget = true;
+                targetLine.enabled = true;
             }
         }catch(Exception){}
 
@@ -50,6 +62,10 @@ public class RocketController : MonoBehaviour
 
         if(seekTarget){
             this.transform.position = Vector3.MoveTowards(this.transform.position, targetPlanet.transform.position, 0.05f);
+            Vector3[] points = new Vector3[2];
+            points[0] = this.transform.position;
+            points[1] = targetPlanet.transform.position;
+            targetLine.SetPositions(points);
         }
     }
 
@@ -89,7 +105,7 @@ public class RocketController : MonoBehaviour
     }
 
     void createDebris(){
-        int debrisNumber = Random.Range(5, 15);
+        int debrisNumber = Random.Range(150, 150);
         Debug.Log("debris number: " + debrisNumber);
         for (int i = 0; i <= debrisNumber - 1; i++){
             GameObject newDebris = Instantiate(debrisPrefab, this.transform.position, Quaternion.identity);
