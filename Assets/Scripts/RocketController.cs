@@ -75,15 +75,28 @@ public class RocketController : MonoBehaviour
             if (other.gameObject.name == targetPlanet.gameObject.name){
 
                 float impactVelocity = this.gameObject.GetComponent<Rigidbody>().velocity.magnitude;
-                float impactEnergy = (0.5f * (explosionForceMass / 5.8776e15f) * Mathf.Pow(impactVelocity, 2));
+
+                //5.8776e15f este numero es la relacion entre la masa del script "planet controller" de la luna y la masa de su rigidbody
+                //la fuerza que tiene un megaton es de 4,184e+15N
+                //La fuerza de la explosion de calcula multiplicando los megatones por los newtons de fuerza de 1 megaton (luego lo divido para compensar las masas)
+                float explosionForce = (explosionMegatons * 4.184e15f) / 5.877e15f;
 
                 Vector3 explosionCenter = this.gameObject.transform.position;
+                
+                float expo = 1f/6f;
+                float explosionRadius = 130 * Mathf.Pow(explosionForceMass, expo);
+                Debug.Log(explosionRadius);
 
-                float explosionRadius = 130 * Mathf.Pow(explosionForceMass, (1/6));
+                //TEORIA: Sabiendo el radio de la explosion se puede supuestamente saber la profundidad de la misma, con estos dos datos se podria calcular el volumen de masa 
+                //movido por la explosion -> depth = diameter * 0.2/0.3
+                float explosionDepth = explosionRadius * Random.Range(0.2f, 0.3f);
+
+                float displacedVolume = Mathf.PI * Mathf.Pow(explosionRadius, 2) * explosionDepth;
+
                 
                 createDebris();
 
-                targetPlanet.gameObject.GetComponent<Rigidbody>().AddExplosionForce(impactEnergy, explosionCenter, explosionRadius);
+                targetPlanet.gameObject.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, explosionCenter, explosionRadius);
                 
                 Destroy(this.gameObject);
             }
@@ -105,7 +118,7 @@ public class RocketController : MonoBehaviour
     }
 
     void createDebris(){
-        int debrisNumber = Random.Range(150, 150);
+        int debrisNumber = Random.Range(75, 75);
         Debug.Log("debris number: " + debrisNumber);
         for (int i = 0; i <= debrisNumber - 1; i++){
             GameObject newDebris = Instantiate(debrisPrefab, this.transform.position, Quaternion.identity);

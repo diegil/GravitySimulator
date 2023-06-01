@@ -53,7 +53,7 @@ public class TrajectoryController : MonoBehaviour
             orbitLine.material.SetColor("_Color", Color.blue);
         }else if(distanceToClosestPlanet > 200 && distanceToClosestPlanet <= 300){
             orbitLine.enabled = false;
-        }else if(distanceToClosestPlanet > 300){
+        }else if(distanceToClosestPlanet > 300 && this.gameObject.name != "Moon(Clone)" && this.gameObject.name != "Earth(Clone)"){
             Destroy(this.gameObject);
         }
 
