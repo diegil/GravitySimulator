@@ -85,7 +85,6 @@ public class RocketController : MonoBehaviour
                 
                 float expo = 1f/6f;
                 float explosionRadius = 130 * Mathf.Pow(explosionForceMass, expo);
-                Debug.Log(explosionRadius);
 
                 //TEORIA: Sabiendo el radio de la explosion se puede supuestamente saber la profundidad de la misma, con estos dos datos se podria calcular el volumen de masa 
                 //movido por la explosion -> depth = diameter * 0.2/0.3
@@ -93,8 +92,11 @@ public class RocketController : MonoBehaviour
 
                 float displacedVolume = Mathf.PI * Mathf.Pow(explosionRadius, 2) * explosionDepth;
 
+                float moonDensity = 3340; //kg/m3
+
+                float displacedWeight = displacedVolume * moonDensity;
                 
-                createDebris();
+                createDebris(displacedWeight);
 
                 targetPlanet.gameObject.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, explosionCenter, explosionRadius);
                 
@@ -117,11 +119,14 @@ public class RocketController : MonoBehaviour
         }
     }
 
-    void createDebris(){
+    void createDebris(float displacedWeight){
         int debrisNumber = Random.Range(75, 75);
-        Debug.Log("debris number: " + debrisNumber);
-        for (int i = 0; i <= debrisNumber - 1; i++){
-            GameObject newDebris = Instantiate(debrisPrefab, this.transform.position, Quaternion.identity);
-        }
+        // for (int i = 0; i <= debrisNumber - 1; i++){
+        //     GameObject newDebris = Instantiate(debrisPrefab, this.transform.position, Quaternion.identity);
+        // }
+        GameObject newDebris = new GameObject();
+        newDebris = Instantiate(debrisPrefab, this.transform.position, Quaternion.identity);
+        targetPlanet.GetComponent<PlanetController>().mass -= displacedWeight;
+        newDebris.GetComponent<PlanetController>().mass = displacedWeight;
     }
 }
