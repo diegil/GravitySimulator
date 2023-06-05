@@ -33,37 +33,39 @@ public class PlanetController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Collider[] influenceObjects = Physics.OverlapSphere(transform.position, float.MaxValue);
-        
-        if (GameObject.Find("Pause(Clone)") != null && pause == false){
-            pause = true;
-            PauseGame();
-        }else if (GameObject.Find("Pause(Clone)") == null && pause == true){
-            ResumeGame();
-            pause = false;
-        }
+        if (mass > 1e15f || this.gameObject.name == "Rocket(Clone)"){
+            Collider[] influenceObjects = Physics.OverlapSphere(transform.position, float.MaxValue);
 
-        foreach (var obj in influenceObjects){
-
-            if (influenceObjects.Length == 2){
-                continue;
-            }
-            if(obj.tag != "Planet"){
-                continue;
+            if (GameObject.Find("Pause(Clone)") != null && pause == false){
+                pause = true;
+                PauseGame();
+            }else if (GameObject.Find("Pause(Clone)") == null && pause == true){
+                ResumeGame();
+                pause = false;
             }
 
-            Rigidbody rb = obj.GetComponent<Rigidbody>();
-            Vector3 forceDirection = (transform.position - rb.position);
+            foreach (var obj in influenceObjects){
 
-            distance = forceDirection.sqrMagnitude;
+                if (influenceObjects.Length == 2){
+                    continue;
+                }
+                if(obj.tag != "Planet"){
+                    continue;
+                }
 
-            if (distance < 0.1){
-                continue;
+                Rigidbody rb = obj.GetComponent<Rigidbody>();
+                Vector3 forceDirection = (transform.position - rb.position);
+
+                distance = forceDirection.sqrMagnitude;
+
+                if (distance < 0.1){
+                    continue;
+                }
+
+                attractionForce = ((mass * rb.mass) / (distance * 10e12f)) * g;
+
+                rb.AddForce(forceDirection * attractionForce);
             }
-
-            attractionForce = ((mass * rb.mass) / (distance * 10e12f)) * g;
-
-            rb.AddForce(forceDirection * attractionForce);
         }
     }
 

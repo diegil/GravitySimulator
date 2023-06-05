@@ -120,131 +120,22 @@ public class RocketController : MonoBehaviour
     }
 
     void createDebris(float displacedWeight){
-        //Numero de fragmentos que saldran tras la explosion
-        int debrisNumber = Random.Range(50, 100);
-
-        //Numero de fragmentos en funcion de la masa (massive, medium, small)
-        int massiveDebris = Random.Range(3, debrisNumber / 8);
-        int debrisLeft = debrisNumber - massiveDebris;
-        
-        int mediumDebris = Random.Range(5,  debrisLeft / 4);
-        debrisLeft -= mediumDebris;
-
-        Debug.Log(debrisNumber);
-        float[] debrisMass = new float[debrisNumber]; 
-        Debug.Log(debrisMass.Length);
-        calculateDebrisMass(displacedWeight, debrisNumber, massiveDebris, debrisLeft, mediumDebris, debrisMass);
-        
-
-        for (int i = 0; i <= debrisMass.Length - 1; i++){
+        List<float> fragmentsMass = calculateDebrisMass(displacedWeight);
+        for (int i = 0; i <= fragmentsMass.Count - 1; i++){
             GameObject newDebris;
             newDebris = Instantiate(debrisPrefab, this.transform.position, Quaternion.identity);
-            targetPlanet.GetComponent<PlanetController>().mass -= displacedWeight;
-            newDebris.GetComponent<PlanetController>().mass = debrisMass[i];
-            if (i < massiveDebris){
-                newDebris.GetComponent<Transform>().localScale *= debrisMass[i] / 1e18f;
-                newDebris.GetComponent<TrailRenderer>().startWidth *= debrisMass[i] / 1e18f;
-                newDebris.GetComponent<TrailRenderer>().endWidth *= debrisMass[i] / 1e18f;
-            }else if (i >= massiveDebris && i < mediumDebris + massiveDebris){
-                newDebris.GetComponent<Transform>().localScale *= debrisMass[i] / 1e17f;
-                newDebris.GetComponent<TrailRenderer>().startWidth *= debrisMass[i] / 1e17f;
-                newDebris.GetComponent<TrailRenderer>().endWidth *= debrisMass[i] / 1e17f;
-            }else if (i >= massiveDebris + mediumDebris){
-                newDebris.GetComponent<Transform>().localScale *= debrisMass[i] / 1e16f;
-                newDebris.GetComponent<TrailRenderer>().startWidth *= debrisMass[i] / 1e16f;
-                newDebris.GetComponent<TrailRenderer>().endWidth *= debrisMass[i] / 1e16f;
-            }
+            newDebris.GetComponent<PlanetController>().mass = fragmentsMass[i];
         }
-
-        // GameObject newDebris = new GameObject();
-        
     }
 
-    void calculateDebrisMass(float displacedWeight, int debrisNumber, int massiveDebris, int debrisLeft, int mediumDebris, float[] debrisMass){
-        
-
-        //Masa asignada a los fragmentos "massive"
-        float massiveDebrisTotalMass = displacedWeight * Random.Range(0.9f, 0.95f);
-        displacedWeight -= massiveDebrisTotalMass;
-
-        //Masa asignada a los fragmentos "medium"
-        float mediumDebrisTotalMass = displacedWeight * Random.Range(0.99f, 0.999f);
-        displacedWeight -= mediumDebrisTotalMass;
-
-        //Masa de los fragmentos "massive" dividida entre ellos
-        float massiveDebrisSingleMass = massiveDebrisTotalMass / massiveDebris;
-        float massiveDebrisLeftMass = 0;
-
-        //Masa de los fragmentos "medium" dividida entre ellos
-        float mediumDebrisSingleMass = mediumDebrisTotalMass / mediumDebris;
-        float mediumDebrisLeftMass = 0;
-
-        //Masa de los fragmentos "small" dividida entre ellos
-        float smallDebrisSingleMass = displacedWeight / debrisLeft;
-        float smallDebrisLeftMass = 0;
-
-        for (int i = 0; i <= debrisNumber - 1; i++){
-            Debug.Log(i);
-            if (i < massiveDebris){
-                
-                //Masa que se le quita a cada fragmento "massive"
-                float massiveDebrisDifferenceMass = Random.Range(0, massiveDebrisSingleMass / 4);
-
-                //Masa que queda "suelta" de todos los fragmentos "massive"
-                massiveDebrisLeftMass += massiveDebrisDifferenceMass;
-
-                //Masa asignada a cada fragmento "massive"
-                debrisMass[i] = massiveDebrisSingleMass - massiveDebrisDifferenceMass;
-
-            }else if (i >= massiveDebris && i < mediumDebris + massiveDebris){
-
-                //Masa que se le quita a cada fragmento "medium"
-                float mediumDebrisDifferenceMass = Random.Range(0, mediumDebrisSingleMass / 4);
-
-                //Masa que queda "suelta" de todos los fragmentos "medium"
-                mediumDebrisLeftMass += mediumDebrisDifferenceMass;
-
-                //Masa asignada a cada fragmento "medium"
-                debrisMass[i] = mediumDebrisSingleMass - mediumDebrisDifferenceMass;
-                 
-            }else if (i >= massiveDebris + mediumDebris){
-
-                //Masa que se le quita a cada fragmento "small"
-                float smallDebrisDifferenceMass = Random.Range(0, smallDebrisSingleMass / 4);
-
-                //Masa que queda "suelta" de todos los fragmentos "small"
-                smallDebrisLeftMass += smallDebrisDifferenceMass;
-
-                //Masa asignada a cada fragmento "small"
-                debrisMass[i] = smallDebrisSingleMass - smallDebrisDifferenceMass;
-            }
+    List<float> calculateDebrisMass(float displacedWeight){
+        List<float> fragmentsMass = new List<float>();
+        while(displacedWeight > 1){
+            float fragmentMass = Random.Range(1, displacedWeight / 3);
+            displacedWeight -= fragmentMass;
+            fragmentsMass.Add(fragmentMass);
         }
-
-        //Masa "suelta" de los fragmentos "massive" dividida entre todos ellos
-        float massiveDebrisLeftSingleMass = massiveDebrisLeftMass / massiveDebris;
-
-        //Masa "suelta" de los fragmentos "medium" dividida entre todos ellos
-        float mediumDebrisLeftSingleMass = mediumDebrisLeftMass / mediumDebris;
-
-        //Masa "suelta" de los fragmentos "small" dividida entre todos ellos
-        float smallDebrisLeftSingleMass = smallDebrisLeftMass / debrisLeft;
-
-        for (int i = 0; i <= debrisMass.Length - 1; i++){
-            if (i < massiveDebris){
-
-                //Masa final de cada fragmento "massive" (masa asignada anteriormente + masa suelta que le corresponde a cada uno)
-                debrisMass[i] += massiveDebrisLeftSingleMass;
-
-            }else if (i >= massiveDebris && i < mediumDebris + massiveDebris){
-
-                //Masa final de cada fragmento "medium" (masa asignada anteriormente + masa suelta que le corresponde a cada uno)
-                debrisMass[i] += mediumDebrisLeftSingleMass;
-
-            }else if (i > massiveDebris + mediumDebris){
-
-                //Masa final de cada fragmento "small" (masa asignada anteriormente + masa suelta que le corresponde a cada uno)
-                debrisMass[i] += smallDebrisLeftSingleMass;
-            }
-        }
+            Debug.Log(fragmentsMass.Count);
+        return fragmentsMass;
     }
 }
