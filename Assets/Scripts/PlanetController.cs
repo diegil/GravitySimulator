@@ -33,7 +33,7 @@ public class PlanetController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (mass > 1e15f || this.gameObject.name == "Rocket(Clone)"){
+        if (mass > 1e16f || this.gameObject.name == "Rocket(Clone)"){
             Collider[] influenceObjects = Physics.OverlapSphere(transform.position, float.MaxValue);
 
             if (GameObject.Find("Pause(Clone)") != null && pause == false){

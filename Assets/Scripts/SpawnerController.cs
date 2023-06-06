@@ -15,6 +15,8 @@ public class SpawnerController : MonoBehaviour
     public GameObject[] planets;
     int selectedPlanet = -1;
 
+    public Camera cam;
+
     bool followPreview = false;
 
     // Update is called once per frame
@@ -41,7 +43,7 @@ public class SpawnerController : MonoBehaviour
             
             Ray followRay;
             RaycastHit followHit;
-            followRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            followRay = cam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(followRay, out followHit, 100.0f)){
                 if (followHit.collider.name == "Space"){
                     previewObj.transform.position = followHit.point;
@@ -61,7 +63,7 @@ public class SpawnerController : MonoBehaviour
     void CreatePreview(int selectedPlanet){
         Ray previewRay;
         RaycastHit previewHit;
-        previewRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        previewRay = cam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(previewRay, out previewHit, 100.0f)){
             if (previewHit.collider.name == "Space"){
                 previewObj = Instantiate(planets[selectedPlanet], previewHit.point, Quaternion.identity);
