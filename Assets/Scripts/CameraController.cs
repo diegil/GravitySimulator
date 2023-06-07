@@ -11,6 +11,9 @@ public class CameraController : MonoBehaviour
     private GameObject lookingTarget;
     private bool isLooking;
 
+    private GameObject followingTarget;
+    private bool isFollowing;
+
     public Camera cam;
 
     bool rotating = false;
@@ -18,6 +21,7 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         lookingTarget = this.gameObject;
+        followingTarget = this.gameObject;
 
         sensitivity = 250f;
         moveSpeed = 25f;
@@ -27,11 +31,12 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (GameObject.Find("Pause (Clone)") == null && Input.GetMouseButtonDown(0)){
+        //Apuntar la camara a un objeto------------------------------------------------------------------------------
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButtonDown(0)){
             Ray ray;
             RaycastHit hit;
             ray = cam.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 100.0f)){
+            if (Physics.Raycast(ray, out hit, float.MaxValue)){
                 if (hit.collider.tag == "Planet" && hit.collider.gameObject != lookingTarget){
                     lookingTarget = hit.collider.gameObject;
                     isLooking = true;
@@ -43,6 +48,25 @@ public class CameraController : MonoBehaviour
 
         if (isLooking){
             this.transform.LookAt(lookingTarget.transform);
+        }
+
+        //Hacer que la camara siga a un objeto-----------------------------------------------------------------------
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButtonDown(1)){
+            Ray ray;
+            RaycastHit hit;
+            ray = cam.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, float.MaxValue)){
+                if (hit.collider.tag == "Planet" && hit.collider.gameObject != followingTarget){
+                    followingTarget = hit.collider.gameObject;
+                    isFollowing = true;
+                }else {
+                    resetFollowingTarget();
+                }
+            }
+        }
+
+        if (isFollowing){
+            this.transform.SetParent(followingTarget.transform);
         }
 
         //Rotar camara ----------------------------------------------------------------------------------------------
@@ -64,18 +88,22 @@ public class CameraController : MonoBehaviour
         if (Input.GetKey(KeyCode.W)){
             transform.position += moveSpeed * transform.forward * Time.deltaTime;
             resetLookingTarget();
+            resetFollowingTarget();
         }
         if (Input.GetKey(KeyCode.S)){
             transform.position += moveSpeed * -transform.forward * Time.deltaTime;
             resetLookingTarget();
+            resetFollowingTarget();
         }
         if (Input.GetKey(KeyCode.A)){
             transform.position += moveSpeed * -transform.right * Time.deltaTime;
             resetLookingTarget();
+            resetFollowingTarget();
         }
         if (Input.GetKey(KeyCode.D)){
             transform.position += moveSpeed * transform.right * Time.deltaTime;
             resetLookingTarget();
+            resetFollowingTarget();
         }
         if (Input.GetKey(KeyCode.Q)){
             transform.RotateAround(transform.position, transform.forward, rotateSpeed * Time.deltaTime);
@@ -104,5 +132,11 @@ public class CameraController : MonoBehaviour
     void resetLookingTarget(){
         isLooking = false;
         lookingTarget = this.gameObject;
+    }
+
+    void resetFollowingTarget(){
+        isFollowing = false;
+        followingTarget = this.gameObject;
+        this.gameObject.transform.SetParent(null);
     }
 }

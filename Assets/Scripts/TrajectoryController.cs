@@ -16,7 +16,7 @@ public class TrajectoryController : MonoBehaviour
         cmS = gameObject.GetComponent<CommonScripts>();
         
         GameObject[] planetsObj = GameObject.FindGameObjectsWithTag("Planet");
-        if(this.gameObject.name != "Rocket(Clone)"){
+        if(this.gameObject.name != "Rocket(Clone)" && this.gameObject.name != "Earth(Clone)"){
             gameObject.AddComponent<LineRenderer>();
             orbitLine = GetComponent<LineRenderer>();
             orbitLine.startWidth = 0.05f;
@@ -32,7 +32,7 @@ public class TrajectoryController : MonoBehaviour
         GameObject[] planetsObj = GameObject.FindGameObjectsWithTag("Planet");
         if (planetsObj.Length > 1){
             // drawOrbit();
-            if(this.gameObject.name != "Rocket(Clone)"){
+            if(this.gameObject.name != "Rocket(Clone)" && this.gameObject.name != "Earth(Clone)"){
                 drawLine();
             }
         }

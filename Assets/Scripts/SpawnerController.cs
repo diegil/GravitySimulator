@@ -44,7 +44,7 @@ public class SpawnerController : MonoBehaviour
             Ray followRay;
             RaycastHit followHit;
             followRay = cam.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(followRay, out followHit, 100.0f)){
+            if (Physics.Raycast(followRay, out followHit, float.MaxValue)){
                 if (followHit.collider.name == "Space"){
                     previewObj.transform.position = followHit.point;
                 }
@@ -64,7 +64,7 @@ public class SpawnerController : MonoBehaviour
         Ray previewRay;
         RaycastHit previewHit;
         previewRay = cam.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(previewRay, out previewHit, 100.0f)){
+        if (Physics.Raycast(previewRay, out previewHit, float.MaxValue)){
             if (previewHit.collider.name == "Space"){
                 previewObj = Instantiate(planets[selectedPlanet], previewHit.point, Quaternion.identity);
                 followPreview = true;

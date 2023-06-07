@@ -25,7 +25,7 @@ public class PlanetController : MonoBehaviour
         cmS = gameObject.GetComponent<CommonScripts>();
 
         GameObject[] planetsObj = GameObject.FindGameObjectsWithTag("Planet");
-        if (planetsObj.Length > 2 && pause == false){
+        if (this.gameObject.name == "Moon(Clone)"){
             addCentripetalAcceleration();
         }
     }
@@ -52,6 +52,9 @@ public class PlanetController : MonoBehaviour
                 if(obj.tag != "Planet"){
                     continue;
                 }
+                if(obj.name == "Earth(Clone)"){
+                    continue;
+                }
 
                 Rigidbody rb = obj.GetComponent<Rigidbody>();
                 Vector3 forceDirection = (transform.position - rb.position);
@@ -75,10 +78,10 @@ public class PlanetController : MonoBehaviour
         float w;
         Vector3 radiusVector = closestPlanet.transform.position - this.transform.position;
         float radius = radiusVector.magnitude * 4e11f;
-
-        Vector2 perpendicularRadiusVector2D = Vector2.Perpendicular(radiusVector);
-
-        Vector3 perpendicularRadiusVector3D = new Vector3(perpendicularRadiusVector2D.x, 0, -perpendicularRadiusVector2D.y).normalized;
+        Vector3 yVector = new Vector3(this.transform.position.x, 1, this.transform.position.z) - this.transform.position;
+        radiusVector = radiusVector.normalized;
+        yVector = yVector.normalized;
+        Vector3 perpendicularRadiusVector3D = Vector3.Cross(radiusVector, yVector).normalized;
 
         w = Mathf.Sqrt((g * closestPlanet.GetComponent<PlanetController>().mass) / radius);
 
@@ -96,7 +99,7 @@ public class PlanetController : MonoBehaviour
     void ResumeGame(){
         Rigidbody rigidbody = this.GetComponent<Rigidbody>();
         rigidbody.isKinematic = false;
-        rigidbody.AddForce( savedVelocity, ForceMode.VelocityChange );
-        rigidbody.AddTorque( savedAngularVelocity, ForceMode.VelocityChange );
+        rigidbody.AddForce(savedVelocity, ForceMode.VelocityChange);
+        rigidbody.AddTorque(savedAngularVelocity, ForceMode.VelocityChange);
     }
 }

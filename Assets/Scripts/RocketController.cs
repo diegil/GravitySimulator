@@ -109,7 +109,7 @@ public class RocketController : MonoBehaviour
         Ray ray;
         RaycastHit hit;
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, 100.0f)){
+        if (Physics.Raycast(ray, out hit, float.MaxValue)){
             if (hit.collider.tag == "Planet"){
                 targetPlanet = hit.collider.gameObject;
                 selectingTarget = false;
