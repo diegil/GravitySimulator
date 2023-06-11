@@ -31,6 +31,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+
         //Apuntar la camara a un objeto------------------------------------------------------------------------------
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButtonDown(0)){
             Ray ray;
@@ -123,7 +124,7 @@ public class CameraController : MonoBehaviour
         }
 
         //Hacer zoom -----------------------------------------------------------------------------------------------
-        if (Input.GetAxis("Mouse ScrollWheel") != 0){
+        if (Input.GetAxis("Mouse ScrollWheel") != 0 && isLooking){
             moveSpeed -= Input.GetAxis("Mouse ScrollWheel") / 70;
             cam.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * 10;
         }
@@ -132,6 +133,7 @@ public class CameraController : MonoBehaviour
     void resetLookingTarget(){
         isLooking = false;
         lookingTarget = this.gameObject;
+        cam.fieldOfView = 60;
     }
 
     void resetFollowingTarget(){

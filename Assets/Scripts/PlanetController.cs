@@ -49,10 +49,10 @@ public class PlanetController : MonoBehaviour
                 if (influenceObjects.Length == 2){
                     continue;
                 }
-                if(obj.tag != "Planet"){
+                if (obj.tag != "Planet"){
                     continue;
                 }
-                if(obj.name == "Earth(Clone)"){
+                if (obj.name == "Earth(Clone)"){
                     continue;
                 }
 
